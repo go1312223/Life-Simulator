@@ -4,13 +4,13 @@ The simulation of our lifes ! Provides several features to record basic things o
 Features :
 
 1. Memo 
-
+    capable of making notes.
 2. CheckList
-
+    record somethings that you have to finish in the deadline.
 3. StudyPlanner
-
+    capable to record and noti
 4. AutoPlanner
-
+    capable of automaticall arrange your study plan or else
 5. Schedule
 
 6. Line Simulator
