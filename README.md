@@ -59,16 +59,19 @@ Progress
 
 水: 
 
-11/7 Log In System finished
+11/7 Log In System and its UI finished
 
-11/10 Start Developing Memo
+11/10 Start Developing All SQL Facades
+
+11/15 Start Developing Memo System
 
 11/20 Start Developing Schedule
 
+..
 
 邱:
 
-CheckList先交給你惹，慢慢鑽研xDD
+CheckList 跟他的UI先交給你惹，頁面設計再來討論，慢慢鑽研xDD
 
 When finished your task, you can add some new features like 倒數日
 
