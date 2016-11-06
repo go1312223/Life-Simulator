@@ -56,6 +56,34 @@ Regulations
 
 Progress
 
+登入系統
+
+遊戲主畫面 
+
+遊戲主畫面 所有元件 (功能的Image Button)
+
+便條紙 UI
+
+便條紙TABLE
+
+便條紙快取功能TABLE
+
+便條紙使用 新增 刪除 編輯 分類搜尋
+
+行程表 UI
+
+行程表 TABLE
+
+行程表快取TABLE
+
+行程表 儲存行程 載入行程 刪除行程 編輯單一行程 亮出時段 通知功能 使用者設定 
+
+CheckList UI
+
+CheckList Table
+
+CheckList 新增 多選刪除 通知功能 編輯
+
 
 水: 
 
@@ -71,4 +99,6 @@ Progress
 CheckList先交給你惹，慢慢鑽研xDD
 
 When finished your task, you can add some new features like 倒數日
+
+
 
