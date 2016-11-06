@@ -56,9 +56,9 @@ Regulations
 
 Progress
 
-登入系統
+登入系統 ok
 
-遊戲主畫面 
+遊戲主畫面  ok 差女主角房間背景
 
 遊戲主畫面 所有元件 (功能的Image Button)
 
