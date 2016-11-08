@@ -97,7 +97,9 @@ CheckList 新增 多選刪除 通知功能 編輯
 邱:
 
 CheckList先交給你惹，慢慢鑽研xDD
+
 11/6 思考人生
+11/8 雛形
 
 When finished your task, you can add some new features like 倒數日
 
