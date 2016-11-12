@@ -108,8 +108,8 @@ CheckList先交給你惹，慢慢鑽研xDD
 * 如果你要開一個表格:
     * (1) 開一個class 繼承此類別 命名 Entity名稱_DB_Facade
     * (2) 實踐所有SQL資料操作方法
-    * (3) 設私有建構子 傳遞表格名稱 及 createTable()
-    * (4) 在你的facade內新增方法 getFacade() 參考 User_DB_Facade
+    * (3) 設私有建構子 傳遞表格名稱 它會呼叫函數建好表格
+    * (4) 在你的facade類別內新增方法 getFacade() 參考 User_DB_Facade (獨體模式)
     * (5) 在MyDbHelper中的onUpgrade(..)函數中新增一條指令實踐刪除你的表格 :
     *   你的類別名稱.getFacade().dropTable();
 
