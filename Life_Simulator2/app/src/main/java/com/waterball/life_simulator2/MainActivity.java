@@ -17,15 +17,15 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public static SQLiteDatabase db;
-    public static User_DB_Facade user_db_facade;
+    public static DB_Facade user_db_facade;
     private RadioButton boy_RD;  //boy radiobutton
     private EditText inputNameED;  //edit : input the name
     private FloatingActionButton fab;  // send email to me
     private Toolbar toolbar; // nothing you should care about this
-    public static final String DATABASE_NAME = "LifeSimulator_Database.db";  // database name , don't edit!
+
     private void initialize(){
-        db = openOrCreateDatabase(DATABASE_NAME,MODE_PRIVATE,null);
-        user_db_facade = new User_DB_Facade();
+        db = MyDBHelper.getDatabase(getApplicationContext());
+        user_db_facade = User_DB_Facade.getFacade();
     }
     private void processViews(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -44,29 +44,29 @@ public class MainActivity extends AppCompatActivity {
     // Click the Log In Button
     public void LogInOnClick(View v){
         Cursor cursor;
-        String inputName = inputNameED.getText().toString();  //get user's name
-        int sex = ( boy_RD.isChecked() ? User.BOY : User.GIRL);  //get user's sex
-        User user = new User(inputName,sex); // encapsulate user's datas
+        String inputName = inputNameED.getText().toString();  //取得使用者名稱
+        int sex = ( boy_RD.isChecked() ? User.BOY : User.GIRL);  //取得性別
+        User user = new User(inputName,sex); // 封裝使用者資料
 
-        if ( inputName.length() == 0 )  //judge if the user hasn't input
+        if ( inputName.length() == 0 )  //判斷欄位輸入
             Toast.makeText(getApplicationContext(),"請輸入暱稱!",Toast.LENGTH_SHORT).show();
 
-        //search if the name exists
+        //判斷是否搜尋到該使用者資料
         cursor = user_db_facade.getSpecifiedTupleByName(user);
         if ( cursor.getCount() <= 0 || cursor == null )  //if can't find
         {
             if (cursor == null)
                 throw new SQLException("Cursor Null error");
-            //insert as an new tuple
+            //增新增為新使用者
             user_db_facade.InsertTuple(user);
         }
-        // Log In the game to the next activity
-        Intent logIn = new Intent(this,MainGame.class);
 
+        //取得該登入使用者資料
         cursor = user_db_facade.getSpecifiedTupleByName(user);
         cursor.moveToFirst();
 
-        //put user's id in the extra
+        //傳遞該使用者id到第二個頁面
+        Intent logIn = new Intent(this,MainGame.class);
         logIn.putExtra(User.ID_String,cursor.getInt(User_DB_Facade.COLUMN_ID));
 
         //log in successfully and load user's datas
@@ -80,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar(toolbar);
-        initialize();
-        processViews();
-        processControl();
+        initialize();  //初始化資料
+        processViews();  //初始化元件
+        processControl();  //元件控制註冊
     }
 
     @Override
@@ -94,12 +94,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

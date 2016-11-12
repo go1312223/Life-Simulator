@@ -9,14 +9,29 @@ import android.database.sqlite.SQLiteDatabase;
  */
 
 public abstract class DB_Facade {
+    /*
+    * 如果你要開一個表格:
+    * (1) 開一個class 繼承此類別 命名 Entity名稱_DB_Facade
+    * (2) 實踐所有SQL資料操作方法
+    * (3) 設私有建構子 傳遞表格名稱 及 createTable()
+    * (4) 在你的facade內新增方法 getFacade() 參考 User_DB_Facade
+    * (5) 在MyDbHelper中的onUpgrade(..)函數中新增一條指令實踐刪除你的表格 :
+    *   你的類別名稱.getFacade().dropTable();
+    * */
     protected static String TABLE_NAME;  //table's name
+    protected static DB_Facade facade;
     protected SQLiteDatabase db;  // 資料庫本體 由 MainActivity 創建
-    public DB_Facade(String tableName){
+    protected DB_Facade(String tableName){
         //子類別需呼叫建構式，並且傳入table名稱 EX : super("userName");
         this.db = MainActivity.db;
         this.TABLE_NAME = tableName;
     }
     public abstract void createTable() ;  //創建table
+    public void dropTable(){
+        if ( TABLE_NAME == null )
+            throw new SQLException("刪除之table無初始化");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME );
+    }
     public abstract void deleteTuple(int id) ;  //刪除資料 傳入該資料id
     public abstract void InsertTuple(Item item) ;  //新增資料 傳入資料封裝好的item
     public abstract void ModifyTuple(int id , Item item) ;  //修改資料 傳入id 及 修改結果之Item
@@ -25,4 +40,5 @@ public abstract class DB_Facade {
     }
     public abstract Cursor getSpecifiedTupleByName(Item item)  ;  //搜尋特定資料by Name
     public abstract Cursor getSpecifiedTupleById(int id) ;  //搜尋特定資料by Id
+
 }

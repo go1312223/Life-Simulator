@@ -1,4 +1,4 @@
-# Life-Simulator  ( Just for the final project of our homework )
+﻿# Life-Simulator  ( Just for the final project of our homework )
 
 Features 
 
@@ -100,6 +100,22 @@ CheckList先交給你惹，慢慢鑽研xDD
 
 11/6 思考人生
 11/8 雛形
+
+11/12 水:
+
+(1) 大改資料庫系統 配合 DB Open Helper (才能讓資料庫更新時自動刪除舊表格)
+
+* 如果你要開一個表格:
+    * (1) 開一個class 繼承此類別 命名 Entity名稱_DB_Facade
+    * (2) 實踐所有SQL資料操作方法
+    * (3) 設私有建構子 傳遞表格名稱 及 createTable()
+    * (4) 在你的facade內新增方法 getFacade() 參考 User_DB_Facade
+    * (5) 在MyDbHelper中的onUpgrade(..)函數中新增一條指令實踐刪除你的表格 :
+    *   你的類別名稱.getFacade().dropTable();
+
+(2) 準備開發Memo ! 
+
+
 
 When finished your task, you can add some new features like 倒數日
 

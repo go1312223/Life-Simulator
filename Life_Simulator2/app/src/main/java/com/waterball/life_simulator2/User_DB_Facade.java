@@ -13,17 +13,18 @@ public class User_DB_Facade extends DB_Facade {
     private static final String USER_EXP = "userexp";
     private static final String USER_LV = "userlv";
     private static final String USER_SEX = "usersex";
-    public static final int COLUMN_ID = 0;
+    public static final int COLUMN_ID = 0;  //方便該行的取得之常數
     public  static final int COLUMN_TEXT_NAME = 1;
     public  static final int COLUMN_INT_EXP = 2;
     public  static final int COLUMN_INT_LV = 3;
     public  static final int COLUMN_INT_SEX = 4;
 
-    public User_DB_Facade(){
-        super("User_Table");
+    //使用私有建構子 !!
+    private User_DB_Facade(){
+        super("User_Table");  //設定表格名稱
         try
         {
-            createTable();
+            createTable();  //建表
         }catch (SQLException err){
             Log.d("myLog",err.toString());
         }
@@ -37,8 +38,7 @@ public class User_DB_Facade extends DB_Facade {
         }
     }
 
-
-    @Override
+    @Override  //刪除資料 傳入id
     public void deleteTuple(int id)  {
         try {
             db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE _id = " + id);
@@ -47,7 +47,7 @@ public class User_DB_Facade extends DB_Facade {
         }
     }
 
-    @Override
+    @Override  //新增 傳入該資料的封裝物件
     public void InsertTuple(Item item) {
         User user = (User)item;
         try {
@@ -58,7 +58,7 @@ public class User_DB_Facade extends DB_Facade {
         }
     }
 
-    @Override
+    @Override  //修改 傳入id 跟 修改之後的結果物件
     public void ModifyTuple(int id, Item item) throws SQLException {
         User user = (User)item;
         try {
@@ -69,7 +69,7 @@ public class User_DB_Facade extends DB_Facade {
         }
     }
 
-    @Override
+    @Override //搜尋資料 傳入目標資料封裝物件
     public Cursor getSpecifiedTupleByName(Item item) throws SQLException {
         User user = (User)item;
         try {
@@ -81,7 +81,7 @@ public class User_DB_Facade extends DB_Facade {
         return null;
     }
 
-    @Override
+    @Override  //用id搜尋資料
     public Cursor getSpecifiedTupleById(int id) throws SQLException {
         try {
             return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE _id = " + id, null);
@@ -90,5 +90,12 @@ public class User_DB_Facade extends DB_Facade {
         }
 
         return null;
+    }
+
+    //建議使用  獨體模式 得到唯獨一個facade
+    public static DB_Facade getFacade() {
+        if ( facade == null )
+            facade = new User_DB_Facade();
+        return facade;
     }
 }
