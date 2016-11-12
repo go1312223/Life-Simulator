@@ -9,6 +9,7 @@ import android.util.Log;
  */
 
 public class User_DB_Facade extends DB_Facade {
+    private static DB_Facade facade;
     private static final String USER_NAME = "userName";
     private static final String USER_EXP = "userexp";
     private static final String USER_LV = "userlv";
@@ -22,26 +23,12 @@ public class User_DB_Facade extends DB_Facade {
     //使用私有建構子 !!
     private User_DB_Facade(){
         super("User_Table");  //設定表格名稱
-        try
-        {
-            createTable();  //建表
-        }catch (SQLException err){
-            Log.d("myLog",err.toString());
-        }
     }
     @Override
     public void createTable() throws SQLException {
         try{
-            db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY ," + USER_NAME + " TEXT ," + USER_EXP + " INTEGER ," + USER_LV + " INTEGER ," + USER_SEX + " INTEGER )");
-        }catch (SQLException err){
-            Log.d("myLog",err.toString());
-        }
-    }
-
-    @Override  //刪除資料 傳入id
-    public void deleteTuple(int id)  {
-        try {
-            db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE _id = " + id);
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (_id INTEGER PRIMARY KEY ," +
+                    USER_NAME + " TEXT ," + USER_EXP + " INTEGER ," + USER_LV + " INTEGER ," + USER_SEX + " INTEGER )");
         }catch (SQLException err){
             Log.d("myLog",err.toString());
         }
@@ -77,18 +64,6 @@ public class User_DB_Facade extends DB_Facade {
         }catch (SQLException err){
             Log.d("myLog",err.toString());
         }
-
-        return null;
-    }
-
-    @Override  //用id搜尋資料
-    public Cursor getSpecifiedTupleById(int id) throws SQLException {
-        try {
-            return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE _id = " + id, null);
-        }catch (SQLException err){
-            Log.d("myLog",err.toString());
-        }
-
         return null;
     }
 

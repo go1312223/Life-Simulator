@@ -50,29 +50,29 @@ public class MainActivity extends AppCompatActivity {
 
         if ( inputName.length() == 0 )  //判斷欄位輸入
             Toast.makeText(getApplicationContext(),"請輸入暱稱!",Toast.LENGTH_SHORT).show();
+        else {
+            //判斷是否搜尋到該使用者資料
+            cursor = user_db_facade.getSpecifiedTupleByName(user);
+            if (cursor.getCount() <= 0 || cursor == null)  //if can't find
+            {
+                if (cursor == null)
+                    throw new SQLException("Cursor Null error");
+                //增新增為新使用者
+                user_db_facade.InsertTuple(user);
+            }
 
-        //判斷是否搜尋到該使用者資料
-        cursor = user_db_facade.getSpecifiedTupleByName(user);
-        if ( cursor.getCount() <= 0 || cursor == null )  //if can't find
-        {
-            if (cursor == null)
-                throw new SQLException("Cursor Null error");
-            //增新增為新使用者
-            user_db_facade.InsertTuple(user);
+            //取得該登入使用者資料
+            cursor = user_db_facade.getSpecifiedTupleByName(user);
+            cursor.moveToFirst();
+
+            //傳遞該使用者id到第二個頁面
+            Intent logIn = new Intent(this, MainGame.class);
+            logIn.putExtra(User.ID_String, cursor.getInt(User_DB_Facade.COLUMN_ID));
+
+            //log in successfully and load user's datas
+            Toast.makeText(getApplicationContext(), "登入成功,歡迎 " + inputName, Toast.LENGTH_LONG).show();
+            startActivity(logIn);
         }
-
-        //取得該登入使用者資料
-        cursor = user_db_facade.getSpecifiedTupleByName(user);
-        cursor.moveToFirst();
-
-        //傳遞該使用者id到第二個頁面
-        Intent logIn = new Intent(this,MainGame.class);
-        logIn.putExtra(User.ID_String,cursor.getInt(User_DB_Facade.COLUMN_ID));
-
-        //log in successfully and load user's datas
-        Toast.makeText(getApplicationContext(),"登入成功,歡迎 "+inputName,Toast.LENGTH_LONG).show();
-        startActivity(logIn);
-
 
     }
     @Override
