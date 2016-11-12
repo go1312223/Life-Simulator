@@ -13,7 +13,6 @@ public class Memo_DB_Facade extends DB_Facade {
 
     @Override
     public void createTable() {
-5
     }
 
     @Override
@@ -39,5 +38,11 @@ public class Memo_DB_Facade extends DB_Facade {
     @Override
     public Cursor getSpecifiedTupleById(int id) {
         return null;
+    }
+
+    public static DB_Facade getFacade() {
+        if ( facade == null )
+            facade = new Memo_DB_Facade();
+        return facade;
     }
 }
