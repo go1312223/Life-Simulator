@@ -36,6 +36,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         version = i1;
         Log.d("myLog","資料庫版本:"+version);
+        Memo_DB_Facade.getFacade().dropTable();
         User_DB_Facade.getFacade().dropTable();
         onCreate(sqLiteDatabase);
     }
