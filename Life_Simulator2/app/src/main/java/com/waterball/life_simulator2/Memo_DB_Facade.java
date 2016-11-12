@@ -13,7 +13,7 @@ public class Memo_DB_Facade extends DB_Facade {
 
     @Override
     public void createTable() {
-
+5
     }
 
     @Override
