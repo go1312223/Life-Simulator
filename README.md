@@ -69,6 +69,7 @@ Progress
 邱:
 
 CheckList先交給你惹，慢慢鑽研xDD
+11/5 從零開始
 
 When finished your task, you can add some new features like 倒數日
 
