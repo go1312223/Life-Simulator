@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // to write the feedback function allowing user to send email to us
+                // to write the feedback function allowing user to send email to us..
             }
         });
     }

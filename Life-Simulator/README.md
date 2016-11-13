@@ -126,7 +126,7 @@ CheckList先交給你惹，慢慢鑽研xDD
 
 When finished your task, you can add some new features like 倒數日
 
-測試status ~
+測試status ~~~
 
 
 
