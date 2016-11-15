@@ -97,6 +97,7 @@ public class Memo_Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("myLog","畫面重新載入，更新Adapter");
         memoAdapter.notifyDataSetChanged();
     }
 

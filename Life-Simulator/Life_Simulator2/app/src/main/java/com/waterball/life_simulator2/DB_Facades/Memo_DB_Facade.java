@@ -1,4 +1,4 @@
-﻿package com.waterball.life_simulator2.DB_Facades;
+package com.waterball.life_simulator2.DB_Facades;
 
 import android.database.Cursor;
 import android.database.SQLException;
