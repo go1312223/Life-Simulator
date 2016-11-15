@@ -100,7 +100,6 @@ CheckList先交給你惹，慢慢鑽研xDD
 
 11/6 思考人生
 11/8 雛形
-11/13 新增
 
 11/12 水:
 
@@ -109,16 +108,30 @@ CheckList先交給你惹，慢慢鑽研xDD
 * 如果你要開一個表格:
     * (1) 開一個class 繼承此類別 命名 Entity名稱_DB_Facade
     * (2) 實踐所有SQL資料操作方法
-    * (3) 設私有建構子 傳遞表格名稱 它會呼叫函數建好表格
-    * (4) 在你的facade類別內新增方法 getFacade() 參考 User_DB_Facade (獨體模式)
+    * (3) 設私有建構子 傳遞表格名稱 及 createTable()
+    * (4) 在你的facade內新增方法 getFacade() 參考 User_DB_Facade
     * (5) 在MyDbHelper中的onUpgrade(..)函數中新增一條指令實踐刪除你的表格 :
     *   你的類別名稱.getFacade().dropTable();
 
-(2) 準備開發Memo ! 
+(2) Memo開發進度75%:
+   (1)Memo頁面
+   (2)Memo編輯頁面
+   (3)Memo展現頁面
+   (4)Memo資料庫儲存
+  
+11/15 水：
+
+(1) Weak Entity 測試 Android SQL 根本沒支援 Weak entity 的設置阿 !!!!!
+更新SQL語法 
+
+
 
 
 
 When finished your task, you can add some new features like 倒數日
+
+測試status ~~~
+
 
 
 
