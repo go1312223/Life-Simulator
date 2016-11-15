@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        style="@style/waterball_preference_notebookItem"
+        android:text="標題預覽"
+        android:textSize="24sp"
+        android:id="@+id/title_memo_item_layout"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分類預覽"
+        android:textSize="17sp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="7dp"
+        android:id="@+id/category_memo_item_layout"/>
+</LinearLayout>

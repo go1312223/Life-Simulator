@@ -1,18 +1,14 @@
 package com.waterball.life_simulator2.Memo;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.SimpleCursorAdapter;
 
 import com.waterball.life_simulator2.DB_Facades.DB_Facade;
 import com.waterball.life_simulator2.DB_Facades.Memo_DB_Facade;
@@ -29,52 +25,17 @@ public class Memo_Activity extends AppCompatActivity {
     private static final int ADD_REQUEST = 0;
 
     public static List<Memo> memoList; // Memo使用!!
-    private MemoAdapter memoAdapter;
     private DB_Facade memo_db_facade;
-    class MemoAdapter extends BaseAdapter{
-        private Context context;
-        public MemoAdapter(Context c){
-            context = c;
-        }
-        @Override
-        public int getCount() {
-            return memoList.size();
-        }
-        @Override
-        public Object getItem(int i) {
-            return memoList.get(i);
-        }
-        @Override
-        public long getItemId(int i) {
-            return memoList.get(i).getId();
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup viewGroup) {
-            Memo memo;
-            TextView text = new TextView(context);
-            if(convertView == null ){
-                memo = (Memo)getItem(position);
-                text.setText(memo.getName());
-                convertView = text;
-                text.setTextColor(Color.BLACK);
-                text.setTextSize(25);
-                convertView.setTag(text);
-            }else{
-                text = (TextView) convertView.getTag();
-            }
-            return text;
-        }
-    }
+
     private void initiate(){
         memo_db_facade = Memo_DB_Facade.getFacade();
-        memoAdapter = new MemoAdapter(this);
         memoList = Collections.checkedList( new ArrayList<Memo>() , Memo.class);
     }
     private void processViews(){
         memoListView = (ListView)findViewById(R.id.notebook_LIST_MEMO);
     }
     private void processControl(){
-        memoListView.setAdapter(memoAdapter);
+
         /***** 選擇Memo觀看內容 *****/
         memoListView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
@@ -97,8 +58,8 @@ public class Memo_Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("myLog","畫面重新載入，更新Adapter");
-        memoAdapter.notifyDataSetChanged();
+        Log.d("myLog","載入畫面，更新Adapter");
+        updateListView( memo_db_facade.getAll() );
     }
 
     /*******  載入Memos資料 *******/
@@ -132,7 +93,7 @@ public class Memo_Activity extends AppCompatActivity {
 
     public void addMemoOnClick (View v){
         Intent goEditPage = new Intent(this,Memo_item_page.class);
-        goEditPage.setAction("android.intent.action.Edit");
+        goEditPage.setAction("android.intent.action.Add");
         startActivityForResult(goEditPage,ADD_REQUEST);
     }
 
@@ -151,11 +112,24 @@ public class Memo_Activity extends AppCompatActivity {
                     Memo memo = new Memo( data.getStringExtra(Memo.TITLE_STRING)
                             , data.getStringExtra(Memo.CONTENT_STRING) , data.getStringExtra(Memo.CATEGORY_STRING) );
                     memo_db_facade.InsertTuple(memo);
-
+                    //搜索該Memo Id
+                    Cursor cursor = memo_db_facade.getSpecifiedTupleByName(memo);
+                    cursor.moveToFirst();
+                    int memoId = cursor.getInt(Memo_DB_Facade.COLUMN_USERID);
+                    memo.setId( memoId );
                     memoList.add(memo);
-                    memoAdapter.notifyDataSetChanged();
+                    updateListView( memo_db_facade.getAll() );
                 }
             }
+    }
+
+    // 更新ListView
+    private void updateListView(Cursor cursor) {
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter( this ,
+                R.layout.memo_listview , cursor ,
+                new String[]{  Memo_DB_Facade.MEMO_NAME , Memo_DB_Facade.MEMO_CATEGORY }
+        , new int[]{ R.id.title_memo_item_layout , R.id.category_memo_item_layout } , 0 );
+        memoListView.setAdapter(adapter);
     }
 
 

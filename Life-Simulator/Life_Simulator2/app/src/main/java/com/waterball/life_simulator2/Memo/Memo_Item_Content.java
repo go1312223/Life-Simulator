@@ -21,7 +21,7 @@ public class Memo_Item_Content extends AppCompatActivity {
     private static final int REQUEST_EDIT = 1;
 
     private List<Memo> memoList = Memo_Activity.memoList;
-    private DB_Facade memo_db_facade;
+    private DB_Facade memo_db_facade = Memo_DB_Facade.getFacade();;
     private Memo currentMemo;  //觀看中的Memo
     private int currentPosition;  //觀看中Memo的Position
 
@@ -29,8 +29,11 @@ public class Memo_Item_Content extends AppCompatActivity {
         Intent intent = getIntent();
         titleTX.setText(intent.getStringExtra(Memo.TITLE_STRING));
         contentTX.setText(intent.getStringExtra(Memo.CONTENT_STRING));
-        currentPosition = intent.getIntExtra(Memo.POSITION_STRING,0);
+        currentPosition = intent.getIntExtra(Memo.POSITION_STRING,-1);
+        if ( currentPosition == -1 )
+             Log.d("myLog","currentPosition Error == -1 ~");
         currentMemo = memoList.get(currentPosition);
+
     }
 
     private void processViews(){
@@ -42,21 +45,17 @@ public class Memo_Item_Content extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo__item__content);
-
-        memo_db_facade = Memo_DB_Facade.getFacade();
         processViews();
         loadMemoToText();
-
     }
 
     public void editOnClick(View v){
-        int memoPosition = getIntent().getIntExtra(Memo.POSITION_STRING,-1);
         Intent goEditPage = new Intent(this,Memo_item_page.class);
         goEditPage.setAction("android.intent.action.Edit");
         goEditPage.putExtra(Memo.TITLE_STRING,currentMemo.getName());
         goEditPage.putExtra(Memo.CATEGORY_STRING,currentMemo.getCategory());
         goEditPage.putExtra(Memo.CONTENT_STRING,currentMemo.getContent());
-        startActivityForResult(goEditPage,this.REQUEST_EDIT);
+        startActivityForResult(goEditPage,REQUEST_EDIT);
     }
 
     @Override

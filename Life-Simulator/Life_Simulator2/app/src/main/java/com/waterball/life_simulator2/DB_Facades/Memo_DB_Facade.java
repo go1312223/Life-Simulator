@@ -13,9 +13,9 @@ import com.waterball.life_simulator2.Items.Memo;
 
 public class Memo_DB_Facade extends DB_Facade {
     private static DB_Facade facade;
-    private static final String MEMO_NAME = "memo_name";
-    private static final String MEMO_CONTENT = "memo_content";
-    private static final String MEMO_CATEGORY = "memo_category";
+    public static final String MEMO_NAME = "memo_name";
+    public static final String MEMO_CONTENT = "memo_content";
+    public static final String MEMO_CATEGORY = "memo_category";
     public static final int COLUMN_NAME = 2;
     public static final int COLUMN_CONTENT = 3;
     public static final int COLUMN_CATEGORY = 4;
@@ -68,7 +68,7 @@ public class Memo_DB_Facade extends DB_Facade {
     public Cursor getSpecifiedTupleByName(Item item) throws SQLException {
         Memo memo = (Memo)item;
         try {
-            return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + MEMO_NAME + " LIKE '" + memo.getName() + "'", null);
+            return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + MEMO_NAME + " = '" + memo.getName() + "'", null);
         }catch (SQLException err){
             Log.d("myLog",err.toString());
         }
