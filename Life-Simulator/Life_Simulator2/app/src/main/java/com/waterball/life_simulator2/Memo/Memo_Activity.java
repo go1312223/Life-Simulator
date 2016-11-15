@@ -115,7 +115,8 @@ public class Memo_Activity extends AppCompatActivity {
                     //搜索該Memo Id
                     Cursor cursor = memo_db_facade.getSpecifiedTupleByName(memo);
                     cursor.moveToFirst();
-                    int memoId = cursor.getInt(Memo_DB_Facade.COLUMN_USERID);
+                    int memoId = cursor.getInt(0);
+                    Log.d("myLog","新增Memo , id = "+memoId);
                     memo.setId( memoId );
                     memoList.add(memo);
                     updateListView( memo_db_facade.getAll() );

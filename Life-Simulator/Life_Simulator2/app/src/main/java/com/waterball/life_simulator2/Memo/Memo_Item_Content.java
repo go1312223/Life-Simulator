@@ -1,7 +1,9 @@
 package com.waterball.life_simulator2.Memo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -80,4 +82,25 @@ public class Memo_Item_Content extends AppCompatActivity {
         }
     }
 
+    public void deleteOnClick(View view) {
+        new AlertDialog.Builder(Memo_Item_Content.this)
+                .setTitle("刪除")
+                .setMessage("確定要刪除 "+currentMemo.getName()+" 嗎?")
+                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        int id = currentMemo.getId();
+                        memo_db_facade.deleteTuple(id);
+                        memoList.remove(currentPosition);
+                        finish();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .show();
+
+    }
 }

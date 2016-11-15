@@ -11,4 +11,5 @@
     <string name="note_item_entercategory">分類</string>
     <string name="note_item_category">輸入分類</string>
     <string name="memo_edit_btn">編輯筆記</string>
+    <string name="memo_delete_btn">刪除筆記</string>
 </resources>

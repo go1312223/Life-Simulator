@@ -39,6 +39,15 @@
             android:layout_height="80dp"
             android:background="#00000000"
             android:textSize="25sp"
+            android:layout_marginLeft="100sp"
+            android:text="@string/memo_delete_btn"
+            android:onClick="deleteOnClick"
+            android:drawableLeft="@android:drawable/ic_menu_delete"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="#00000000"
+            android:textSize="25sp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:text="@string/memo_edit_btn"
