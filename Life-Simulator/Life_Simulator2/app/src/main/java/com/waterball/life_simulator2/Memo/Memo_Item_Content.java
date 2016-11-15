@@ -71,7 +71,7 @@ public class Memo_Item_Content extends AppCompatActivity {
                 String category = data.getStringExtra(Memo.CATEGORY_STRING);
                 titleTX.setText(title);
                 contentTX.setText(content);
-                Memo memo = new Memo( title,content,category);
+                Memo memo = new Memo( currentMemo.getId(),title,content,category);
                 Log.d("myLog","收到編輯後Memo: title"+title+"\ncategory"+category+"\ncontent:"+content);
                 Log.d("myLog","編輯至Memo.. id:"+currentMemo.getId()+"\nposition:"+currentPosition);
                 memo_db_facade.ModifyTuple(currentMemo.getId(),memo);
