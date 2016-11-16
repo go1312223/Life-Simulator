@@ -76,6 +76,17 @@ public class Memo_DB_Facade extends DB_Facade {
         return null;
     }
 
+    //搜尋分類
+    public Cursor getSpecifiedMemoByCategory(String category) throws SQLException {
+        try {
+            return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + MEMO_CATEGORY + " = '" + category + "'", null);
+        }catch (SQLException err){
+            Log.d("myLog",err.toString());
+        }
+
+        return null;
+    }
+
 
     //建議使用  獨體模式 得到唯獨一個facade
     public static DB_Facade getFacade() {
