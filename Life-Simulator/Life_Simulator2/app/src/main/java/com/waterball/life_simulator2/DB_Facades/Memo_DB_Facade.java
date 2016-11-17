@@ -77,9 +77,9 @@ public class Memo_DB_Facade extends DB_Facade {
     }
 
     //搜尋分類
-    public Cursor getSpecifiedMemoByCategory(String category) throws SQLException {
+    public Cursor getSpecifiedMemoByCategoryAndId(String category,int userId) throws SQLException {
         try {
-            return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + MEMO_CATEGORY + " = '" + category + "'", null);
+            return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + MEMO_CATEGORY + " = '" + category + "' and "+USER_ID+"="+userId, null);
         }catch (SQLException err){
             Log.d("myLog",err.toString());
         }

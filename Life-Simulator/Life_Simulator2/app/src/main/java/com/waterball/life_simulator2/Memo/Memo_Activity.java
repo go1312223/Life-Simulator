@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.waterball.life_simulator2.MainGame.userId;
+
 public class Memo_Activity extends AppCompatActivity {
     private static ListView memoListView;
     private static Spinner categorySpn;
@@ -55,14 +57,13 @@ public class Memo_Activity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 Memo memo;
-                //如果目前是讀取分類的話 就要改變使用的容器為該分類表的list
-                if ( categorySpn.getSelectedItem().toString().equals(CHOOSE_CATEGORY) )
+                //如果目前是讀取分類的話 就要改變使用的容器為該分類ListView對應的容器
+                if ( !categorySpn.getSelectedItem().toString().equals(CHOOSE_CATEGORY) )
                     memo = memoListWhenCategory.get(position);
                 else
                      memo = memoList.get(position);
                 Intent goToMemoItemPage = new Intent(Memo_Activity.this,Memo_Item_Content.class);
-                goToMemoItemPage.putExtra(Memo.POSITION_STRING,position);
-                Log.d("myLog","傳遞Memo訊息,position="+position);
+                goToMemoItemPage.putExtra(Memo.ID_STRING,memo.getId());
                 goToMemoItemPage.putExtra(Memo.TITLE_STRING,memo.getName());
                 goToMemoItemPage.putExtra(Memo.CATEGORY_STRING,memo.getCategory());
                 goToMemoItemPage.putExtra(Memo.CONTENT_STRING,memo.getContent());
@@ -75,19 +76,19 @@ public class Memo_Activity extends AppCompatActivity {
         addFirstCategoryWatchAll();  //增加"全部"進分類
         notifyAdapterChange();  //通知adapter
 
-        //選擇分類
+        /***** 每次分類時，分類用memoListWhenCategory就更新 成 相對的ListView狀態 *****/
         categorySpn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String categ;
+                String categ;  //選擇的分類
                 int id;
                 String category,name,content;
-                //搜尋
+                //搜尋分類
                 if ( !adapterView.getSelectedItem().toString().equals(CHOOSE_CATEGORY))
                 {
                     categ = adapterView.getSelectedItem().toString();
-                    memoListWhenCategory.clear();
-                    Cursor cursor = memo_db_facade.getSpecifiedMemoByCategory(categ);
+                    memoListWhenCategory.clear();  //先清空 再填入所有該分類的memo
+                    Cursor cursor = memo_db_facade.getSpecifiedMemoByCategoryAndId(categ,userId);
                     cursor.moveToFirst();
                     //把目前的分類表更新到另一個arraylist
                     do {
@@ -101,7 +102,7 @@ public class Memo_Activity extends AppCompatActivity {
                 }
                 //全部
                 else
-                    updateListView( memo_db_facade.getAll() );
+                    updateListView( memo_db_facade.getSpecifiedTupleByUserId(userId) );
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -110,16 +111,10 @@ public class Memo_Activity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("myLog","載入畫面，更新Adapter");
-        updateListView( memo_db_facade.getAll() );
-    }
-
-    @Override
     protected void onRestart() {
         super.onRestart();
         updateCategorySpn();  //重載頁面時要更新分類
+        updateListView( memo_db_facade.getSpecifiedTupleByUserId(userId) );  //更新ListView
     }
 
     /*******  載入Memos資料 *******/
@@ -185,7 +180,6 @@ public class Memo_Activity extends AppCompatActivity {
                     Log.d("myLog","新增Memo , id = "+memoId);
                     memo.setId( memoId );
                     memoList.add(memo);
-                    updateListView( memo_db_facade.getAll() );
                 }
             }
     }

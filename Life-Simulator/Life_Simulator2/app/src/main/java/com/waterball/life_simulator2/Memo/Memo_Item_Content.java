@@ -26,16 +26,23 @@ public class Memo_Item_Content extends AppCompatActivity {
     private DB_Facade memo_db_facade = Memo_DB_Facade.getFacade();;
     private Memo currentMemo;  //觀看中的Memo
     private int currentPosition;  //觀看中Memo的Position
+    private int currentMemoId;  //觀看中Memo的Position
 
     private void loadMemoToText(){
         Intent intent = getIntent();
         titleTX.setText(intent.getStringExtra(Memo.TITLE_STRING));
         contentTX.setText(intent.getStringExtra(Memo.CONTENT_STRING));
-        currentPosition = intent.getIntExtra(Memo.POSITION_STRING,-1);
-        if ( currentPosition == -1 )
-             Log.d("myLog","currentPosition Error == -1 ~");
-        currentMemo = memoList.get(currentPosition);
-
+        currentMemoId = intent.getIntExtra(Memo.ID_STRING,-1);
+        if ( currentPosition == -1 || currentMemoId == -1  )
+             Log.d("myLog","currentPosition or Id Error == -1 ~");
+        //載入對應Id的Memo
+        for ( int i = 0 ; i < memoList.size() ; i ++ )
+            if ( memoList.get(i).getId() == currentMemoId )
+            {
+                currentMemo = memoList.get(i);
+                currentPosition = i;
+                break;
+            }
     }
 
     private void processViews(){
@@ -77,7 +84,6 @@ public class Memo_Item_Content extends AppCompatActivity {
                 Log.d("myLog","編輯至Memo.. id:"+currentMemo.getId()+"\nposition:"+currentPosition);
                 memo_db_facade.ModifyTuple(currentMemo.getId(),memo);
                 memoList.set(currentPosition,memo);
-
             }
         }
     }
