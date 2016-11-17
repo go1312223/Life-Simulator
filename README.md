@@ -58,17 +58,17 @@ Progress
 
 登入系統 ok
 
-遊戲主畫面  ok 差女主角房間背景
+遊戲主畫面  ok 
 
 遊戲主畫面 所有元件 (功能的Image Button)
 
-便條紙 UI
+便條紙 UI ok
 
-便條紙TABLE
+便條紙TABLE ok
 
-便條紙快取功能TABLE
+便條紙快取功能TABLE ok
 
-便條紙使用 新增 刪除 編輯 分類搜尋
+便條紙使用 新增 ok 刪除 ok 編輯 ok 分類搜尋 ok
 
 行程表 UI
 
@@ -123,6 +123,10 @@ CheckList先交給你惹，慢慢鑽研xDD
 
 (1) Weak Entity 測試 Android SQL 根本沒支援 Weak entity 的設置阿 !!!!!
 更新SQL語法 
+
+11/17 水：
+
+Memo功能完成。
 
 
 
