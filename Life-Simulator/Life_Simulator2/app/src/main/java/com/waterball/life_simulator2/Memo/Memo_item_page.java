@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,16 +13,26 @@ import android.widget.Toast;
 import com.waterball.life_simulator2.Items.Memo;
 import com.waterball.life_simulator2.R;
 
+import java.util.ArrayList;
+
+import static com.waterball.life_simulator2.Memo.Memo_Activity.categorySet;
+
 public class Memo_item_page extends AppCompatActivity {
     private Button okBTN;
     private EditText titleED;
-    private EditText categoryED;
+    private AutoCompleteTextView categoryED;
     private EditText contentED;
 
+    private void processControl(){
+        ArrayList<String> list = new ArrayList<>(categorySet);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this , android.R.layout.simple_spinner_item , list );
+        categoryED.setAdapter(adapter);
+        categoryED.setThreshold(1);
+    }
     private void processViews(){
         okBTN = (Button)findViewById(R.id.ok_teim_NoteITEM);
         titleED = (EditText)findViewById(R.id.title_text_NoteEdit);
-        categoryED = (EditText)findViewById(R.id.category_text_NoteEdit);
+        categoryED = (AutoCompleteTextView)findViewById(R.id.category_text_NoteEdit);
         contentED = (EditText)findViewById(R.id.content_text_NoteEdit);
     }
     /***** 如果是編輯狀態就載入資料 *****/
@@ -38,6 +50,7 @@ public class Memo_item_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_item_page);
         processViews();
+        processControl();
         loadDataIfEditing();
     }
 

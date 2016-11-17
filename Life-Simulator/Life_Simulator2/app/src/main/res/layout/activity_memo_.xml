@@ -20,7 +20,8 @@
                 android:text="@string/notebook_search_spinner_hint" />
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/category_Spn_Memo">
             </Spinner>
         </LinearLayout>
         <ListView

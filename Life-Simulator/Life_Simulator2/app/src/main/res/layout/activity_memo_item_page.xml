@@ -38,7 +38,7 @@
             android:layout_margin="2sp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/category_text_NoteEdit"
             android:hint="@string/note_item_entercategory"
             style="@style/waterball_preference_notebookItem"

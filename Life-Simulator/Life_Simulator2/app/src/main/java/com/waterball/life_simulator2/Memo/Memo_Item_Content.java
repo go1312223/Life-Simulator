@@ -1,7 +1,9 @@
 package com.waterball.life_simulator2.Memo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -21,16 +23,26 @@ public class Memo_Item_Content extends AppCompatActivity {
     private static final int REQUEST_EDIT = 1;
 
     private List<Memo> memoList = Memo_Activity.memoList;
-    private DB_Facade memo_db_facade;
+    private DB_Facade memo_db_facade = Memo_DB_Facade.getFacade();;
     private Memo currentMemo;  //觀看中的Memo
     private int currentPosition;  //觀看中Memo的Position
+    private int currentMemoId;  //觀看中Memo的Position
 
     private void loadMemoToText(){
         Intent intent = getIntent();
         titleTX.setText(intent.getStringExtra(Memo.TITLE_STRING));
         contentTX.setText(intent.getStringExtra(Memo.CONTENT_STRING));
-        currentPosition = intent.getIntExtra(Memo.POSITION_STRING,0);
-        currentMemo = memoList.get(currentPosition);
+        currentMemoId = intent.getIntExtra(Memo.ID_STRING,-1);
+        if ( currentPosition == -1 || currentMemoId == -1  )
+             Log.d("myLog","currentPosition or Id Error == -1 ~");
+        //載入對應Id的Memo
+        for ( int i = 0 ; i < memoList.size() ; i ++ )
+            if ( memoList.get(i).getId() == currentMemoId )
+            {
+                currentMemo = memoList.get(i);
+                currentPosition = i;
+                break;
+            }
     }
 
     private void processViews(){
@@ -42,21 +54,17 @@ public class Memo_Item_Content extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo__item__content);
-
-        memo_db_facade = Memo_DB_Facade.getFacade();
         processViews();
         loadMemoToText();
-
     }
 
     public void editOnClick(View v){
-        int memoPosition = getIntent().getIntExtra(Memo.POSITION_STRING,-1);
         Intent goEditPage = new Intent(this,Memo_item_page.class);
         goEditPage.setAction("android.intent.action.Edit");
         goEditPage.putExtra(Memo.TITLE_STRING,currentMemo.getName());
         goEditPage.putExtra(Memo.CATEGORY_STRING,currentMemo.getCategory());
         goEditPage.putExtra(Memo.CONTENT_STRING,currentMemo.getContent());
-        startActivityForResult(goEditPage,this.REQUEST_EDIT);
+        startActivityForResult(goEditPage,REQUEST_EDIT);
     }
 
     @Override
@@ -76,9 +84,29 @@ public class Memo_Item_Content extends AppCompatActivity {
                 Log.d("myLog","編輯至Memo.. id:"+currentMemo.getId()+"\nposition:"+currentPosition);
                 memo_db_facade.ModifyTuple(currentMemo.getId(),memo);
                 memoList.set(currentPosition,memo);
-
             }
         }
     }
 
+    public void deleteOnClick(View view) {
+        new AlertDialog.Builder(Memo_Item_Content.this)
+                .setTitle("刪除")
+                .setMessage("確定要刪除 "+currentMemo.getName()+" 嗎?")
+                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        int id = currentMemo.getId();
+                        memo_db_facade.deleteTuple(id);
+                        memoList.remove(currentPosition);
+                        finish();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .show();
+
+    }
 }

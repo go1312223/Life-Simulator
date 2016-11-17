@@ -8,7 +8,8 @@
     <string name="note_item_entertitle">輸入標題</string>
     <string name="note_item_entercontent">內容</string>
     <string name="note_item_content">輸入內容</string>
-    <string name="note_item_entercategory">分類</string>
-    <string name="note_item_category">輸入分類</string>
+    <string name="note_item_entercategory">輸入分類</string>
+    <string name="note_item_category">分類</string>
     <string name="memo_edit_btn">編輯筆記</string>
+    <string name="memo_delete_btn">刪除筆記</string>
 </resources>

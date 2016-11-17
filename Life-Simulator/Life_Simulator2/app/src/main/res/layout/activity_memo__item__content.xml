@@ -34,6 +34,7 @@
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:background="@color/color_memo_bottommenu_gray">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="80dp"
@@ -43,6 +44,20 @@
             android:layout_marginRight="10dp"
             android:text="@string/memo_edit_btn"
             android:onClick="editOnClick"
-            android:drawableLeft="@android:drawable/ic_menu_edit"/>
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:id="@+id/button" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="#00000000"
+            android:textSize="25sp"
+            android:text="@string/memo_delete_btn"
+            android:onClick="deleteOnClick"
+            android:drawableLeft="@android:drawable/ic_menu_delete"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/button"
+            android:layout_marginRight="10dp"
+            android:id="@+id/button2" />
     </RelativeLayout>
 </RelativeLayout>
