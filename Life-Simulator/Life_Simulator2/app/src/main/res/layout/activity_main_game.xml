@@ -23,7 +23,15 @@
             android:src="@drawable/notebook_icon"
             android:scaleType="fitCenter"
             android:background="#00ffffff"
-            android:id="@+id/memoBTN_GAME"/>
-
+            android:id="@+id/memoBTN_GAME"
+            android:onClick="itemOnClick"/>
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/scheduleIcon"
+            android:scaleType="fitCenter"
+            android:background="#00ffffff"
+            android:id="@+id/scheduleBTN_GAME"
+            android:onClick="itemOnClick"/>
     </LinearLayout>
 </RelativeLayout>

@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.waterball.life_simulator2.DB_Facades.DB_Facade;
 import com.waterball.life_simulator2.DB_Facades.User_DB_Facade;
 import com.waterball.life_simulator2.Memo.Memo_Activity;
+import com.waterball.life_simulator2.Schedule.ScheduleActivity;
 import com.waterball.life_simulator2.User.User;
 
 public class MainGame extends AppCompatActivity {
@@ -20,7 +20,6 @@ public class MainGame extends AppCompatActivity {
     private Cursor userCursor;  // the currently playing user's cursor in the Database
 
     private RelativeLayout parentRelative;  //背景
-    private ImageButton memoBTN;
     private DB_Facade user_db_facade;
 
     private void initiate(){
@@ -50,33 +49,34 @@ public class MainGame extends AppCompatActivity {
 
     private void processView(){
         parentRelative = (RelativeLayout)findViewById(R.id.relative_layout_activity_main_game);
-        memoBTN = (ImageButton)findViewById(R.id.memoBTN_GAME);
     }
-    private void processControl(){
-        memoBTN.setOnClickListener(itemOnClick);
-    }
+
     /*****  Item 按鈕點擊 → 到各Item頁面  *******/
-    private ImageButton.OnClickListener itemOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-            ImageButton btn = (ImageButton)view;
-            Intent goToItem = new Intent();
-            goToItem.putExtra(User.ID_String,userId);
-
-            if ( btn == memoBTN )
+    public void itemOnClick(View v) {
+        int id = v.getId();
+        Intent goToItem = new Intent();
+        goToItem.putExtra(User.ID_String,userId);
+        switch(id){
+            case R.id.memoBTN_GAME:
                 goToItem.setClass(MainGame.this,Memo_Activity.class);
-
-            startActivity(goToItem);
+                break;
+            case R.id.scheduleBTN_GAME:
+                goToItem.setClass(MainGame.this, ScheduleActivity.class);
+                break;
         }
-    };
+
+
+
+        startActivity(goToItem);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
         initiate();
         processView();
-        processControl();
         loadUser();
     }
 }

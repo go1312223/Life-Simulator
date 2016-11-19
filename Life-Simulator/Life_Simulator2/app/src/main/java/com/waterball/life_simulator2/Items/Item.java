@@ -14,13 +14,12 @@ public abstract class Item {
     * 宣告放置所有該Item的ArrayList
     * 記得userId也是item的Primary key
     * */
-    protected Item(){
+    protected Item(){  //建構子直接存入MainGame"當前登入的UserId"
         this.userId = MainGame.userId;
     }
-    private static int userId;
-    protected int id;
+    private static int userId;  //紀錄userId
+    protected int id;  //PK
     public static final String ID_STRING = "id";
-    public static final String POSITION_STRING = "position";
 
     public static int getUserId() {
         return userId;

@@ -1,8 +1,6 @@
 package com.waterball.life_simulator2.Items;
 
-/**
- * Created by AndroidWork on 2016/11/12.
- */
+
 
 public class Memo extends Item {
     private String name;

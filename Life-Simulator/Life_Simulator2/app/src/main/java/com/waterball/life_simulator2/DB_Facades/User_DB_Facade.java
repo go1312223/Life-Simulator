@@ -63,7 +63,7 @@ public class User_DB_Facade extends DB_Facade {
     public Cursor getSpecifiedTupleByName(Item item) throws SQLException {
         User user = (User)item;
         try {
-            return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + USER_NAME + " LIKE '" + user.getName() + "'", null);
+            return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + USER_NAME + " = '" + user.getName() + "'", null);
         }catch (SQLException err){
             Log.d("myLog",err.toString());
         }
