@@ -128,6 +128,9 @@ CheckList先交給你惹，慢慢鑽研xDD
 
 Memo功能完成。
 
+11/19 水：
+
+Schedule facade介面建立
 
 
 
