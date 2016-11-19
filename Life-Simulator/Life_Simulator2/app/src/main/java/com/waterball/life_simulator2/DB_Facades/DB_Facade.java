@@ -31,6 +31,10 @@ public abstract class DB_Facade {
         this.TABLE_NAME = tableName;
         createTable();  //建表
     }
+    //子類別需呼叫建構式，但若多傳入一個boolean就不在建構式中建表
+    DB_Facade(String tableName , boolean b){
+        this.TABLE_NAME = tableName;
+    }
     public abstract void createTable() ;  //創建table
     public void dropTable(){
         if ( TABLE_NAME == null )

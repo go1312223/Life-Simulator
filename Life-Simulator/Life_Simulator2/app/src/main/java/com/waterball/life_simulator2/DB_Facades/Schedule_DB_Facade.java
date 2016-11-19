@@ -16,13 +16,12 @@ public class Schedule_DB_Facade extends DB_Facade {
     private static DB_Facade facade;
     public static final int COLUMN_USERID = 1;
     public static final int COLUMN_SCH_GROUP_NAME = 2;
-    public static String[] allScheNames;  //24小時屬性字串
+    public static String[] allScheNames = new String[24];  //24小時屬性字串
     public static String allAttrs_Command;  //24小時屬性字串的結合
     public static final String SCH_GROUP_NAME = "Schedule_group_name"; //行程表單名稱
 
     private Schedule_DB_Facade() {
-        super("Schedule_Table");
-        allScheNames = new String[24];
+        super("Schedule_Table",true); //不建表 所以多傳一個boolean
         StringBuilder string = new StringBuilder("");
         // 存放24小時行程的屬性名稱
         for ( int i = 0 ; i < 24 ; i ++ ) {

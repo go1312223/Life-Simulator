@@ -28,7 +28,7 @@
         <ImageButton
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/scheduleIcon"
+            android:src="@drawable/scheduleicon"
             android:scaleType="fitCenter"
             android:background="#00ffffff"
             android:id="@+id/scheduleBTN_GAME"

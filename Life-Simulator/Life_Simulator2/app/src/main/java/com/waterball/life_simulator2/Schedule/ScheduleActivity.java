@@ -9,13 +9,14 @@ import com.waterball.life_simulator2.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class ScheduleActivity extends AppCompatActivity {
-    private ArrayList<Schedule> schedules;
+    private List<Schedule> schedules;
     private Schedule_DB_Facade schedule_db_facade;
 
     private void init(){
-        schedules = (ArrayList<Schedule>) Collections.checkedList(new ArrayList<Schedule>(),Schedule.class);
+        schedules = Collections.checkedList(new ArrayList<Schedule>(),Schedule.class);
         schedule_db_facade = (Schedule_DB_Facade) Schedule_DB_Facade.getFacade();
     }
 
