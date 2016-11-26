@@ -2,6 +2,9 @@
     <string name="app_name">Life_Simulator2</string>
     <string name="action_settings">Settings</string>
 
+    <string name="contextMenuCardDetails_show">使用者詳情</string>
+    <string name="contextMenuCardDetails_setting">設定</string>
+
     <string name="level">Lv </string>
     <string name="exp">經驗值：</string>
 

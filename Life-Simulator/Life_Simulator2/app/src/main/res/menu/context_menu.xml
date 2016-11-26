@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.waterball.life_simulator2.MainActivity">
+    <item
+        android:id="@+id/userDetailsMenu_show"
+        android:orderInCategory="0"
+        android:title="@string/contextMenuCardDetails_show"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/userDetailsMenu_setting"
+        android:orderInCategory="1"
+        android:title="@string/contextMenuCardDetails_setting"
+        app:showAsAction="never" />
+</menu>

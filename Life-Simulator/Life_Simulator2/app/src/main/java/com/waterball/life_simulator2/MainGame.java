@@ -5,11 +5,16 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.waterball.life_simulator2.DB_Facades.DB_Facade;
 import com.waterball.life_simulator2.DB_Facades.User_DB_Facade;
@@ -28,6 +33,7 @@ public class MainGame extends AppCompatActivity {
     private ProgressBar expBar;
     private TextView userLvTxt;
     private TextView userNameTxt;
+    private CardView userDetailsCard; //the cardview that shows user details
 
     private void initiate(){
         user_db_facade = User_DB_Facade.getFacade();
@@ -79,10 +85,15 @@ public class MainGame extends AppCompatActivity {
 
 
     private void processView(){
+        userDetailsCard = (CardView)findViewById(R.id.cardShowUserDetails_MainGame);
         userNameTxt = (TextView)findViewById(R.id.userNameShowOnCard_MainGame);
         expBar = (ProgressBar)findViewById(R.id.userExpBar_MainGame);
         userLvTxt = (TextView)findViewById(R.id.userLevel_MainGame);
         parentRelative = (RelativeLayout)findViewById(R.id.relative_layout_activity_main_game);
+    }
+
+    private void processController(){
+        registerForContextMenu(userDetailsCard);  //長按卡片可獲得詳細資訊
     }
 
     /*****  Item 按鈕點擊 → 到各Item頁面  *******/
@@ -108,6 +119,32 @@ public class MainGame extends AppCompatActivity {
         setContentView(R.layout.activity_main_game);
         initiate();
         processView();
+        processController();
         loadUser();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu,menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch(id)
+        {
+            case R.id.userDetailsMenu_show:
+                Toast.makeText(getApplicationContext(),"玩家姓名: "+curUser.getName()+
+                        "\n等級: "+(curUser.getLv()+1) + "\n經驗值: "+curUser.getExp(),Toast.LENGTH_LONG).show();
+                break;
+            case R.id.userDetailsMenu_setting:
+                break;
+        }
+
+        return super.onContextItemSelected(item);
     }
 }
