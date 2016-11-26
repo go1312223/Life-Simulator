@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.waterball.life_simulator2.Items.Memo;
 import com.waterball.life_simulator2.R;
+import com.waterball.life_simulator2.User.LevelManager;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class Memo_item_page extends AppCompatActivity {
     private EditText titleED;
     private AutoCompleteTextView categoryED;
     private EditText contentED;
+    private LevelManager levelManager = LevelManager.getLevelManager();
 
     private void processControl(){
         ArrayList<String> list = new ArrayList<>(categorySet);
@@ -71,6 +73,8 @@ public class Memo_item_page extends AppCompatActivity {
                 result.putExtra(Memo.CATEGORY_STRING,category);
                 result.putExtra(Memo.CONTENT_STRING,content);
                 setResult(Memo_Activity.RESULT_OK,result);
+
+                levelManager.updateEXP((int)(content.length()*0.3));
                 finish();
             }
         }

@@ -13,6 +13,7 @@ import com.waterball.life_simulator2.DB_Facades.DB_Facade;
 import com.waterball.life_simulator2.DB_Facades.Memo_DB_Facade;
 import com.waterball.life_simulator2.Items.Memo;
 import com.waterball.life_simulator2.R;
+import com.waterball.life_simulator2.User.LevelManager;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class Memo_Item_Content extends AppCompatActivity {
     private Memo currentMemo;  //觀看中的Memo
     private int currentPosition;  //觀看中Memo的Position
     private int currentMemoId;  //觀看中Memo的Position
+    private LevelManager levelManager = LevelManager.getLevelManager();
 
     private void loadMemoToText(){
         Intent intent = getIntent();
@@ -84,6 +86,8 @@ public class Memo_Item_Content extends AppCompatActivity {
                 Log.d("myLog","編輯至Memo.. id:"+currentMemo.getId()+"\nposition:"+currentPosition);
                 memo_db_facade.ModifyTuple(currentMemo.getId(),memo);
                 memoList.set(currentPosition,memo);
+
+                levelManager.updateEXP(5);
             }
         }
     }
@@ -98,6 +102,8 @@ public class Memo_Item_Content extends AppCompatActivity {
                         int id = currentMemo.getId();
                         memo_db_facade.deleteTuple(id);
                         memoList.remove(currentPosition);
+
+                        levelManager.updateEXP(-15);
                         finish();
                     }
                 })

@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import com.waterball.life_simulator2.DB_Facades.Memo_DB_Facade;
 import com.waterball.life_simulator2.Items.Memo;
 import com.waterball.life_simulator2.R;
+import com.waterball.life_simulator2.User.LevelManager;
 import com.waterball.life_simulator2.User.User;
 
 import java.util.ArrayList;
@@ -38,8 +39,10 @@ public class Memo_Activity extends AppCompatActivity {
     public static ArrayList<String> cateList; //Memo轉成List
     private static ArrayAdapter<String> categoryAdapter;
     private Memo_DB_Facade memo_db_facade;
+    private LevelManager levelManager;
 
     private void initiate(){
+        levelManager = LevelManager.getLevelManager();
         memo_db_facade = (Memo_DB_Facade) Memo_DB_Facade.getFacade();
         memoList = Collections.checkedList( new ArrayList<Memo>() , Memo.class);
         memoListWhenCategory = Collections.checkedList( new ArrayList<Memo>() , Memo.class);
@@ -180,6 +183,8 @@ public class Memo_Activity extends AppCompatActivity {
                     Log.d("myLog","新增Memo , id = "+memoId);
                     memo.setId( memoId );
                     memoList.add(memo);
+
+                    levelManager.updateEXP(25);
                 }
             }
     }
