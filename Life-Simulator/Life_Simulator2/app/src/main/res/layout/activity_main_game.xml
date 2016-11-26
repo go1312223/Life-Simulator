@@ -11,65 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.waterball.life_simulator2.MainGame"
     android:background="@drawable/boy_room2">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_above="@+id/card_iTEMS">
-        <android.support.v7.widget.CardView
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            app:cardCornerRadius="20dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="水球潘"
-                    style="@style/waterball_preference_text"
-                    android:layout_marginBottom="3dp"
-                    android:textColor="#088c3a"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/exp"
-                    style="@style/waterball_preference_notebookItem"
-                    android:layout_marginBottom="3dp"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="20dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginBottom="5dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="13dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/level"
-                    android:id="@+id/levelTextSet_MainGame"
-                    style="@style/waterball_preference_text"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2"
-                    android:textSize="50sp"
-                    android:layout_toEndOf="@id/levelTextSet_MainGame"
-                    android:textColor="#1372f7"
-                    />
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -101,5 +42,69 @@
                 android:onClick="itemOnClick"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@+id/card_iTEMS"
+        android:layout_alignParentStart="true">
+        <android.support.v7.widget.CardView
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            app:cardCornerRadius="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="水球潘"
+                    android:id="@+id/userNameShowOnCard_MainGame"
+                    style="@style/waterball_preference_text"
+                    android:layout_marginBottom="3dp"
+                    android:textColor="#088c3a"/>
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:id="@+id/userExpBar_MainGame"
+                    android:progress="0"
+                    android:max="100"
+                    style="@android:style/Widget.ProgressBar.Horizontal" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="20dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginBottom="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="13dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/level"
+                    android:id="@+id/levelTextShow_MainGame"
+                    style="@style/waterball_preference_text"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userLevel_MainGame"
+                    android:text="1"
+                    android:layout_marginTop="5dp"
+                    android:textSize="40sp"
+                    android:layout_toEndOf="@id/levelTextShow_MainGame"
+                    android:textColor="#1372f7"/>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 
 </RelativeLayout>

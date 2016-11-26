@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputNameED;  //edit : input the name
     private FloatingActionButton fab;  // send email to me
     private Toolbar toolbar; // nothing you should care about this
+    private ImageView loadingDataMask;  // the mask shows up while loading the datas
 
     private void initialize(){
         db = MyDBHelper.getDatabase(getApplicationContext());
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         boy_RD = (RadioButton)findViewById(R.id.boy_RD);
     }
     private void processControl(){
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         initialize();  //初始化資料
         processViews();  //初始化元件
         processControl();  //元件控制註冊
+
     }
 
     @Override
